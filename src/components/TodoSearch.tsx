@@ -1,7 +1,5 @@
 const TodoSearch = () => {
-  return (
-    <input placeholder="Search for todo"></input>
-  )
-}
+    return <input placeholder='Search for todo'></input>;
+};
 
-export default TodoSearch
+export default TodoSearch;
