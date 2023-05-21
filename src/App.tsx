@@ -34,7 +34,7 @@ function App() {
     };
     return (
         <div className='App'>
-            <TodoCounter />
+            <TodoCounter tasks={task} />
             <TodoSearch />
             <TodoList>
                 {task.map((list, index) => (
