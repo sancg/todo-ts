@@ -1,44 +1,31 @@
-import { useState } from "react";
 import "./App.css";
 import TodoCounter from "./components/TodoCounter";
 import TodoItem from "./components/TodoItem";
 import TodoList from "./components/TodoList";
 import TodoSearch from "./components/TodoSearch";
+import { AddButton } from "./components/AddTodoButton";
+
+type Todo = {
+    text: string;
+    completed: boolean;
+}[];
+
+const defaultTodos: Todo = [
+    { text: "Project Kindle to Notes", completed: false },
+    { text: "Learn React + TS", completed: false },
+    { text: "FrontEnd path", completed: false },
+    { text: "Project Kindle to Notes", completed: false },
+];
 
 function App() {
-    const [task, setTask] = useState([<TodoItem task='Learning React + TS' />]);
-    const [titleTask, setTitleTask] = useState("");
-    const handler = (event: React.MouseEvent<HTMLElement>) => {
-        if (!titleTask) return alert("Please enter title");
-        console.log(titleTask);
-        setTask([...task, <TodoItem task={titleTask} />]);
-        setTitleTask("");
-    };
-    const AddButton = () => {
-        return (
-            <>
-                <input
-                    type='text'
-                    value={titleTask}
-                    placeholder='New task to add'
-                    onChange={(event) => {
-                        // setTimeout(() => console.log(event.currentTarget.value), 100);
-                        setTitleTask(event.currentTarget.value);
-                    }}
-                />
-                <button type='submit' onClick={handler}>
-                    Add Task
-                </button>
-            </>
-        );
-    };
     return (
         <div className='App'>
-            <TodoCounter tasks={task} />
+            <TodoCounter completed={0} totalTasks={defaultTodos.length} />
+
             <TodoSearch />
             <TodoList>
-                {task.map((list, index) => (
-                    <div key={index}>{list}</div>
+                {defaultTodos.map((task) => (
+                    <TodoItem key={task.text} task={task.text} />
                 ))}
             </TodoList>
 

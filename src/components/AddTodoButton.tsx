@@ -12,7 +12,7 @@ const AddButton = () => {
         console.log(task);
     };
     return (
-        <>
+        <div className='newTask'>
             <input
                 type='text'
                 value={titleTask}
@@ -25,7 +25,7 @@ const AddButton = () => {
             <button type='submit' onClick={handler}>
                 Add Task
             </button>
-        </>
+        </div>
     );
 };
 

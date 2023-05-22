@@ -6,8 +6,30 @@ type Props = {
 };
 const TodoCounter = ({ completed = 0, totalTasks = 0 }: Props) => {
     return (
-        <h1>
-            Completed tasks {completed} / {totalTasks}
+        <h1
+            style={{
+                fontSize: "24px",
+                fontWeight: 400,
+            }}
+        >
+            Completed tasks{" "}
+            <span
+                style={{
+                    fontWeight: 700,
+                    color: "green",
+                }}
+            >
+                {completed}
+            </span>{" "}
+            /{" "}
+            <span
+                style={{
+                    fontWeight: 700,
+                    color: "blue",
+                }}
+            >
+                {totalTasks}
+            </span>
         </h1>
     );
 };
