@@ -1,12 +1,13 @@
 import { ReactNode, useState } from "react";
 
 type Props = {
-    tasks: React.JSX.Element[];
+    totalTasks?: React.JSX.Element[] | number;
+    completed?: number;
 };
-const TodoCounter = (props: Props) => {
+const TodoCounter = ({ completed = 0, totalTasks = 0 }: Props) => {
     return (
         <h1>
-            Completed tasks {0} / {props.tasks.length}
+            Completed tasks {completed} / {totalTasks}
         </h1>
     );
 };

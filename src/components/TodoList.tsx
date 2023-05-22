@@ -1,8 +1,8 @@
 type Props = {
     children: React.ReactNode;
 };
-const TodoList = (props: Props) => {
-    return <ul>{props.children}</ul>;
+const TodoList = ({ children }: Props) => {
+    return <ul>{children}</ul>;
 };
 
 export default TodoList;
