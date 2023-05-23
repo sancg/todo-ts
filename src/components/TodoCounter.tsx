@@ -1,5 +1,3 @@
-import { ReactNode, useState } from "react";
-
 type Props = {
     totalTasks?: React.JSX.Element[] | number;
     completed?: number;
@@ -8,6 +6,7 @@ const TodoCounter = ({ completed = 0, totalTasks = 0 }: Props) => {
     return (
         <h1
             style={{
+                marginTop: "20px",
                 fontSize: "24px",
                 fontWeight: 400,
             }}
@@ -15,8 +14,7 @@ const TodoCounter = ({ completed = 0, totalTasks = 0 }: Props) => {
             Completed tasks{" "}
             <span
                 style={{
-                    fontWeight: 700,
-                    color: "green",
+                    color: "#4ec600",
                 }}
             >
                 {completed}
@@ -24,8 +22,7 @@ const TodoCounter = ({ completed = 0, totalTasks = 0 }: Props) => {
             /{" "}
             <span
                 style={{
-                    fontWeight: 700,
-                    color: "blue",
+                    color: "#6273fd",
                 }}
             >
                 {totalTasks}

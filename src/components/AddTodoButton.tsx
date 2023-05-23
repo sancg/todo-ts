@@ -16,14 +16,25 @@ const AddButton = () => {
             <input
                 type='text'
                 value={titleTask}
-                placeholder='New task to add'
+                placeholder='Write a new task'
                 onChange={(event) => {
-                    // setTimeout(() => console.log(event.currentTarget.value), 100);
                     setTitleTask(event.currentTarget.value);
                 }}
+                style={{
+                    borderRadius: "18px",
+                    width: "240px",
+                    padding: "10px 30px",
+                    border: "2px solid #f3f3f3",
+                    margin: "10px 0",
+                }}
             />
-            <button type='submit' onClick={handler}>
-                Add Task
+            <button onClick={handler} style={{
+                background: "var(--p-main)",
+                color: "white",
+                padding: '5px',
+                border: '1px #f3f3f3 solid'
+            }}>
+                +
             </button>
         </div>
     );

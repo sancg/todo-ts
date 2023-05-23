@@ -1,3 +1,12 @@
+:root{
+  /* Palette */
+  --p-main: #8697ff;
+  --p-accent: #6273fd;
+  --p-completed: #bbff5d;
+  --p-category-red: #ff5d5d;
+  --p-category-purple: #e18aff;
+}
+
 *, html, body {
   margin: 0;
   padding: 0;
@@ -14,14 +23,18 @@ body {
 }
 
 .App{
-    margin: 5px;
     position: relative;
     display: grid;
-    place-items: center;
+    place-content: center;
+    text-align: center;
+}
+
+h1 > span {
+  font-weight: 700;
 }
 
 input:focus, button:focus{
-     outline-color: #826899;
+     outline-color: var(--p-accent);
 }
 
 ul.TodoList {
@@ -30,7 +43,5 @@ ul.TodoList {
 
 .newTask{
     /* position: fixed; */
-    bottom: 15px;
-    background-color: aqua;
     padding: 10px;
 }
