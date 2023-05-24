@@ -1,8 +1,10 @@
 type Props = {
-    task: string;
+    text: string;
     completed?: boolean;
+    onCompleted: () => void;
+    onDelete: () => void;
 };
-const TodoItem = ({ task, completed }: Props) => {
+const TodoItem = ({ text, completed, onCompleted, onDelete }: Props) => {
     return (
         <li
             style={{
@@ -14,11 +16,10 @@ const TodoItem = ({ task, completed }: Props) => {
                 borderRadius: "18px",
                 boxShadow: "2px 5px 7px 0px #dadada",
             }}
-            className=""
         >
-            <span>V </span>
-            <p>{task}</p>
-            <span> x</span>
+            <span onClick={onCompleted}>{`${completed ? "✅" : "⭕️"}`}</span>
+            <p>{text}</p>
+            <span onClick={onDelete}>x</span>
         </li>
     );
 };

@@ -36,11 +36,25 @@ function App() {
     });
 
     const isTask = filterTodos.length === 0 ? false : true;
-    const handleClick = () => {
+    const handleAddTodo = () => {
+        if (!search) return alert("Please enter a Todo");
         setTasks([...tasks, { text: search, completed: false }]);
         setSearch("");
     };
-    console.log(isTask);
+
+    const handleCompleted = (text: string) => {
+        const newTodos = [...tasks];
+        const todoIndex = newTodos.findIndex((todo) => todo.text === text);
+
+        newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
+        setTasks(newTodos);
+    };
+
+    const handleDelete = (text: string) => {
+        const newTodos = tasks.filter((todo) => todo.text !== text);
+        setTasks(newTodos);
+    };
+
     return (
         <div className='App'>
             <TodoCounter tasks={tasks} />
@@ -48,11 +62,17 @@ function App() {
             <TodoSearch search={search} onChange={handleChange} />
             <TodoList>
                 {filterTodos.map((task, i) => (
-                    <TodoItem key={i + "-" + task.text} task={task.text} />
+                    <TodoItem
+                        key={i + "-" + task.text}
+                        text={task.text}
+                        completed={task.completed}
+                        onCompleted={() => handleCompleted(task.text)}
+                        onDelete={() => handleDelete(task.text)}
+                    />
                 ))}
             </TodoList>
 
-            <AddButton isTask={isTask} onClick={handleClick} />
+            <AddButton isTask={isTask} onClick={handleAddTodo} />
         </div>
     );
 }

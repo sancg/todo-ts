@@ -41,6 +41,14 @@ ul.TodoList {
     list-style: none;
 }
 
+ul > li > span{
+  cursor: pointer;
+}
+
+.completed {
+  background-color: var(--p-completed) !important;
+}
+
 .newTask{
     position: fixed;
     bottom: 0;
