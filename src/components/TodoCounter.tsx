@@ -1,8 +1,14 @@
+import { Todo } from "../App";
+
 type Props = {
-    totalTasks?: React.JSX.Element[] | number;
-    completed?: number;
+    tasks: Todo;
 };
-const TodoCounter = ({ completed = 0, totalTasks = 0 }: Props) => {
+
+const TodoCounter = ({ tasks }: Props) => {
+    // Scores
+    const completedTasks = tasks.filter((item) => item.completed).length;
+    const totalTasks = tasks.length;
+
     return (
         <h1
             style={{
@@ -17,7 +23,7 @@ const TodoCounter = ({ completed = 0, totalTasks = 0 }: Props) => {
                     color: "#4ec600",
                 }}
             >
-                {completed}
+                {completedTasks}
             </span>{" "}
             /{" "}
             <span

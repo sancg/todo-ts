@@ -1,12 +1,12 @@
-type Props =  {
-    search: string,
-    onChange: (e:React.ChangeEvent<HTMLInputElement>) => void
-}
-const TodoSearch = (props : Props) => {
+type Props = {
+    search: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+const TodoSearch = (props: Props) => {
     return (
         <input
             id='searchTask'
-            placeholder='Search for todo'
+            placeholder='Add a todo'
             value={props.search}
             onChange={props.onChange}
             style={{

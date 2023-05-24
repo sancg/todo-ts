@@ -6,7 +6,7 @@ import TodoSearch from "./components/TodoSearch";
 import { AddButton } from "./components/AddTodoButton";
 import "./App.css";
 
-type Todo = {
+export type Todo = {
     text: string;
     completed?: boolean;
 }[];
@@ -22,7 +22,6 @@ function App() {
     const [search, setSearch] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value);
         setSearch(e.currentTarget.value);
     };
 
@@ -30,26 +29,30 @@ function App() {
      * And this would be render on the prop
      *
      */
-    const searchTodos: Todo = tasks.filter((task) => {
+    const filterTodos: Todo = tasks.filter((task) => {
         const searchText = search.toLocaleLowerCase();
         const taskToFind = task.text.toLocaleLowerCase();
         return taskToFind.includes(searchText);
     });
 
-    const completedTask = tasks.filter((item) => item.completed).length;
-    const totalTask = tasks.length;
+    const isTask = filterTodos.length === 0 ? false : true;
+    const handleClick = () => {
+        setTasks([...tasks, { text: search, completed: false }]);
+        setSearch("");
+    };
+    console.log(isTask);
     return (
         <div className='App'>
-            <TodoCounter completed={completedTask} totalTasks={totalTask} />
+            <TodoCounter tasks={tasks} />
 
             <TodoSearch search={search} onChange={handleChange} />
             <TodoList>
-                {searchTodos.map((task) => (
-                    <TodoItem key={task.text} task={task.text} />
+                {filterTodos.map((task, i) => (
+                    <TodoItem key={i + "-" + task.text} task={task.text} />
                 ))}
             </TodoList>
 
-            <AddButton />
+            <AddButton isTask={isTask} onClick={handleClick} />
         </div>
     );
 }
