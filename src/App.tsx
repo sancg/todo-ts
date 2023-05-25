@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoCounter from "./components/TodoCounter";
 import TodoItem from "./components/TodoItem";
 import TodoList from "./components/TodoList";
@@ -11,15 +11,19 @@ export type Todo = {
     completed?: boolean;
 }[];
 
-const defaultTodos: Todo = [
-    { text: "Project Kindle to Notes", completed: false },
-    { text: "Learn React + TS", completed: false },
-    { text: "FrontEnd path", completed: true },
-];
+const is_todo = localStorage.getItem("tasks");
+let initialized: Todo = [];
+if (typeof is_todo === "string") {
+    initialized = JSON.parse(is_todo);
+}
 
 function App() {
-    const [tasks, setTasks] = useState<Todo>(defaultTodos);
+    const [tasks, setTasks] = useState<Todo>(initialized);
     const [search, setSearch] = useState("");
+
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }, [tasks]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.currentTarget.value);
@@ -35,8 +39,8 @@ function App() {
         return taskToFind.includes(searchText);
     });
 
-    const isTask = filterTodos.length === 0 ? false : true;
-    const handleAddTodo = () => {
+    const isTask = filterTodos.length < 2 ? false : true;
+    const addTodo = () => {
         if (!search) return alert("Please enter a Todo");
         setTasks([...tasks, { text: search, completed: false }]);
         setSearch("");
@@ -59,7 +63,7 @@ function App() {
         <div className='App'>
             <TodoCounter tasks={tasks} />
 
-            <TodoSearch search={search} onChange={handleChange} />
+            <TodoSearch search={search} onChange={handleChange} onKeyPress={addTodo} />
             <TodoList>
                 {filterTodos.map((task, i) => (
                     <TodoItem
@@ -72,7 +76,7 @@ function App() {
                 ))}
             </TodoList>
 
-            <AddButton isTask={isTask} onClick={handleAddTodo} />
+            <AddButton isTask={isTask} onClick={addTodo} />
         </div>
     );
 }

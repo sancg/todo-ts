@@ -1,14 +1,20 @@
 type Props = {
     search: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onKeyPress: () => void;
 };
-const TodoSearch = (props: Props) => {
+const TodoSearch = ({ search, onChange, onKeyPress }: Props) => {
     return (
         <input
             id='searchTask'
             placeholder='Add a todo'
-            value={props.search}
-            onChange={props.onChange}
+            value={search}
+            onChange={onChange}
+            onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                    onKeyPress();
+                }
+            }}
             style={{
                 borderRadius: "18px",
                 width: "300px",
