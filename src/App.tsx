@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import TodoCounter from "./components/TodoCounter";
 import TodoItem from "./components/TodoItem";
 import TodoList from "./components/TodoList";
 import TodoSearch from "./components/TodoSearch";
 import { AddButton } from "./components/AddTodoButton";
+import { Todo } from "./models/model_todo";
 import "./App.css";
-
-export type Todo = {
-    text: string;
-    completed?: boolean;
-}[];
 
 const is_todo = localStorage.getItem("TODO_V1");
 let initialized: Todo = [];
@@ -18,8 +14,8 @@ if (typeof is_todo === "string") {
 }
 
 function App() {
-    const [todos, setTodos] = useState<Todo>(initialized);
-    const [search, setSearch] = useState("");
+    const [todos, setTodos] = React.useState<Todo>(initialized);
+    const [search, setSearch] = React.useState("");
 
     /** A copy of the current state was created in the FilterTodos variable
      * And this would be pass throughout the components on the prop.

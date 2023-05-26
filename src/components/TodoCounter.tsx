@@ -1,22 +1,17 @@
-import { Todo } from "../App";
+import { Todo } from "../models/model_todo";
 
 type Props = {
     tasks: Todo;
 };
 
-const TodoCounter = ({ tasks }: Props) => {
-    // Scores
-    const completedTasks = tasks.filter((item) => item.completed).length;
-    const totalTasks = tasks.length;
+type RenderProps = {
+    completedTasks: number;
+    totalTasks: number;
+};
 
+const RenderScore = ({ completedTasks, totalTasks }: RenderProps) => {
     return (
-        <h1
-            style={{
-                marginTop: "20px",
-                fontSize: "24px",
-                fontWeight: 400,
-            }}
-        >
+        <p>
             Completed tasks{" "}
             <span
                 style={{
@@ -33,6 +28,27 @@ const TodoCounter = ({ tasks }: Props) => {
             >
                 {totalTasks}
             </span>
+        </p>
+    );
+};
+
+const TodoCounter = ({ tasks }: Props) => {
+    // Scores
+    const completedTasks = tasks.filter((item) => item.completed).length;
+    const totalTasks = tasks.length;
+
+    return (
+        <h1
+            style={{
+                marginTop: "20px",
+                fontSize: "24px",
+                fontWeight: 400,
+            }}
+        >
+            {totalTasks == 0 && "🌱 Create your Todos 🌱"}
+            {totalTasks > 0 && (
+                <RenderScore completedTasks={completedTasks} totalTasks={totalTasks} />
+            )}
         </h1>
     );
 };
