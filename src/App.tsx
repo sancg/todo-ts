@@ -6,15 +6,11 @@ import TodoSearch from "./components/TodoSearch";
 import { AddButton } from "./components/AddTodoButton";
 import { Todo } from "./models/model_todo";
 import "./App.css";
-
-const is_todo = localStorage.getItem("TODO_V1");
-let initialized: Todo = [];
-if (typeof is_todo === "string") {
-    initialized = JSON.parse(is_todo);
-}
+import { useLocalStorage } from "./customHooks/useLocalStorage";
 
 function App() {
-    const [todos, setTodos] = React.useState<Todo>(initialized);
+    // const [todos, setTodos] = React.useState<Todo>(initialized);
+    const { item: todos, saveOnLocalStorage } = useLocalStorage("TODO_V2", []);
     const [search, setSearch] = React.useState("");
 
     /** A copy of the current state was created in the FilterTodos variable
@@ -26,11 +22,6 @@ function App() {
         const taskToFind = task.text.toLocaleLowerCase();
         return taskToFind.includes(searchText);
     });
-
-    const saveOnLocalStorage = (list: Todo) => {
-        localStorage.setItem("TODO_V1", JSON.stringify(list));
-        setTodos(list);
-    };
 
     const is_add_available = filterTodos.length < 2 ? false : true;
     const addTodo = () => {
