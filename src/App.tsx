@@ -11,59 +11,61 @@ export type Todo = {
     completed?: boolean;
 }[];
 
-const is_todo = localStorage.getItem("tasks");
+const is_todo = localStorage.getItem("TODO_V1");
 let initialized: Todo = [];
 if (typeof is_todo === "string") {
     initialized = JSON.parse(is_todo);
 }
 
 function App() {
-    const [tasks, setTasks] = useState<Todo>(initialized);
+    const [todos, setTodos] = useState<Todo>(initialized);
     const [search, setSearch] = useState("");
 
-    useEffect(() => {
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-    }, [tasks]);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.currentTarget.value);
-    };
-
-    /** It was created a copy of the current state of Tasks
-     * And this would be render on the prop
-     *
+    /** A copy of the current state was created in the FilterTodos variable
+     * And this would be pass throughout the components on the prop.
+     * @returns {Todo}
      */
-    const filterTodos: Todo = tasks.filter((task) => {
+    const filterTodos: Todo = todos.filter((task) => {
         const searchText = search.toLocaleLowerCase();
         const taskToFind = task.text.toLocaleLowerCase();
         return taskToFind.includes(searchText);
     });
 
-    const isTask = filterTodos.length < 2 ? false : true;
+    const saveOnLocalStorage = (list: Todo) => {
+        localStorage.setItem("TODO_V1", JSON.stringify(list));
+        setTodos(list);
+    };
+
+    const is_add_available = filterTodos.length < 2 ? false : true;
     const addTodo = () => {
         if (!search) return alert("Please enter a Todo");
-        setTasks([...tasks, { text: search, completed: false }]);
+        saveOnLocalStorage([...todos, { text: search, completed: false }]);
         setSearch("");
     };
 
+    /* retrieving the input from user */
+    const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.currentTarget.value);
+    };
+
     const handleCompleted = (text: string) => {
-        const newTodos = [...tasks];
+        const newTodos = [...todos];
         const todoIndex = newTodos.findIndex((todo) => todo.text === text);
 
         newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
-        setTasks(newTodos);
+        saveOnLocalStorage(newTodos);
     };
 
     const handleDelete = (text: string) => {
-        const newTodos = tasks.filter((todo) => todo.text !== text);
-        setTasks(newTodos);
+        const newTodos = todos.filter((todo) => todo.text !== text);
+        saveOnLocalStorage(newTodos);
     };
 
     return (
         <div className='App'>
-            <TodoCounter tasks={tasks} />
+            <TodoCounter tasks={todos} />
 
-            <TodoSearch search={search} onChange={handleChange} onKeyPress={addTodo} />
+            <TodoSearch search={search} onChange={handleChangeSearch} onKeyPress={addTodo} />
             <TodoList>
                 {filterTodos.map((task, i) => (
                     <TodoItem
@@ -76,7 +78,7 @@ function App() {
                 ))}
             </TodoList>
 
-            <AddButton isTask={isTask} onClick={addTodo} />
+            <AddButton isTask={is_add_available} onClick={addTodo} />
         </div>
     );
 }
