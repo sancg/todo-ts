@@ -10,6 +10,7 @@ const TodoItem = ({ text, completed, onCompleted, onDelete }: Props) => {
             style={{
                 display: "flex",
                 justifyContent: "space-between",
+                alignItems: "center",
                 margin: "15px 0",
                 backgroundColor: "#fff",
                 padding: "10px 30px",
