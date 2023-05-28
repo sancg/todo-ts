@@ -25,7 +25,7 @@ body {
 .App{
     position: relative;
     display: grid;
-    place-content: center;
+    margin: 0 10px;
     text-align: center;
 }
 
@@ -50,7 +50,7 @@ ul > li > span{
 }
 
 .newTask{
-    position: fixed;
+    /* position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 100%; */
 }
