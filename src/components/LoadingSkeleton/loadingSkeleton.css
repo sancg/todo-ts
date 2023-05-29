@@ -1,0 +1,39 @@
+.TodoLoading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+    background-color: "var(--p-foreground)";
+    padding: 10px 18px;
+    border-radius: 18px; 
+    /* box-shadow: 2px 5px 7px 0px #dadada; */
+}
+
+.TodoCheck, .TodoDelete {
+    width: 26px;
+    height: 26px;
+    border-radius: 100px;
+}
+
+.TodoText {
+    width: 300px;
+    height: 30px;
+}
+
+.TodoLoading, .TodoCheck, .TodoDelete, .TodoText {
+    background: linear-gradient(90deg, rgb(243, 249, 255), rgb(203, 203, 203));
+    background-size: 400% 400%;
+    animation: loadingAnimation 3s ease-in-out infinite;
+  }
+  
+  @keyframes loadingAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
