@@ -11,6 +11,8 @@ interface TodoInterface {
     handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleCompleted: (text: string) => void;
     handleDelete: (text: string) => void;
+    isLoading: boolean;
+    setIsLoading: (b: React.SetStateAction<boolean>) => void;
 }
 
 const defaultValue: TodoInterface = {
@@ -30,6 +32,10 @@ const defaultValue: TodoInterface = {
         return;
     },
     is_add: true,
+    isLoading: true,
+    setIsLoading: () => {
+        return;
+    },
 };
 const TodoContext = React.createContext(defaultValue);
 
@@ -37,8 +43,14 @@ type Props = {
     children: React.ReactNode;
 };
 const TodoProvider = ({ children }: Props) => {
-    const { item: todos, saveOnLocalStorage } = useLocalStorage("TODO_V2", []);
+    const {
+        item: todos,
+        saveOnLocalStorage,
+        loading,
+        setLoading,
+    } = useLocalStorage("TODO_V2", []);
     const [search, setSearch] = React.useState("");
+    // const [isLoading, setIsLoading] = React.useState(defaultValue.isLoading);
     /** A copy of the current state was created in the FilterTodos variable
      * And this would be pass throughout the components on the prop.
      * @returns {Todo}
@@ -84,6 +96,8 @@ const TodoProvider = ({ children }: Props) => {
                 handleDelete,
                 handleSearch: handleChangeSearch,
                 is_add: is_add_available,
+                isLoading: loading,
+                setIsLoading: setLoading,
             }}
         >
             {children}

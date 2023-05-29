@@ -7,13 +7,14 @@ type Props = {
 const TodoItem = ({ text, completed, onCompleted, onDelete }: Props) => {
     return (
         <li
+            className='TodoItem'
             style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 margin: "15px 0",
-                backgroundColor: "#fff",
-                padding: "10px 30px",
+                backgroundColor: "var(--p-foreground)",
+                padding: "10px 18px",
                 borderRadius: "18px",
                 boxShadow: "2px 5px 7px 0px #dadada",
             }}
